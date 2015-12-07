@@ -1,0 +1,58 @@
+<?php
+	
+// ________ TOOLS ________
+	session_start();
+
+	$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
+
+	if ( $database === false )
+		die(mysqli_connect_error());
+
+	sp_autoload_register(function ($class)
+	{
+		require('models/'.$class.'.class.php');
+	});
+
+	if ( isset($_SESSION['id']) )
+	{
+		$userManager = new UserManager($database);
+		$currentUser = $userManager->getCurrent();
+	}
+
+// ________ HUB ________
+	$ways = array(
+		'admin',
+		'home', 'category', 'subcategory', 'item',
+		'cart', 'address', 'payment',
+		'register', 'login', 'profile', 'edit_profile');
+	$handlers = array(
+		'create_item'=>'item', 'create_category'=>'category', 'create_subcategory'=>'subcategory',
+		'create_shipping_mode'=>'shipping_mode',
+		'register'=>'user', 'login'=>'user', 'logout'=>'user', 'edit_profile'=>'user',
+		'category'=>'category',
+		'subcategory'=>'subcategory',
+		'item'=>'item', 'add_to_cart'=>'cart',
+		'cart'=>'cart', 'address'=>'cart', 'payment'=>'cart');
+
+	$page = 'home';
+	$errors = array();
+
+	if ( isset($_GET['page']) )
+	{
+		if ( isset($handlers[$_GET['page']]) )
+		{
+			require('apps/handler_'.$handlers[$_GET['page']].'.php');
+		}
+		else if ( in_array($_GET['page'], $handlers) )
+		{
+			require('apps/handler_'.$_GET['page'].'.php');
+		}
+		if ( in_array($_GET['page'], $ways) )
+		{
+			$page = $_GET['page'];
+		}
+	}
+
+	require('apps/skel.php');
+
+?>
