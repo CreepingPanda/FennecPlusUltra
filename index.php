@@ -6,7 +6,7 @@
 	$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
 
 	if ( $database === false )
-		die(mysqli_connect_error());
+		die("Oups, le stagiaire a débranché la base de données.");
 
 	spl_autoload_register(function ($class)
 	{
