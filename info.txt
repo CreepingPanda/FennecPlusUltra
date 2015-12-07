@@ -1,0 +1,2 @@
+Schéma MVC et DB :
+https://docs.google.com/drawings/d/1YZpij-RM8yu59NBeNuXtxpJ2dJeryHWdyYyDEQ5dWfA/edit?usp=sharing
