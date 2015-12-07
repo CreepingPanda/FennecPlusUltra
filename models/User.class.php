@@ -2,6 +2,8 @@
 
 class User {
 
+    private $db;
+
     private $id;
     private $rights;
     private $l_name;
@@ -10,6 +12,11 @@ class User {
     private $email;
     private $date;
 
+
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
 
 
     /*\ GETTERS */
