@@ -16,6 +16,28 @@ class UserManager {
 
 
     /**
+     * @return object
+     * @throws Exception
+     */
+    public function getCurrent()
+    {
+        if(isset($_SESSION['id']))
+        {
+            $query  = "SELECT * FROM user WHERE id = ".$_SESSION['id'];
+            $data   = $this->db->query($query);
+            $user   = $data->fetchObject("User", array($this->db));
+
+            return $user;
+        }
+        else
+        {
+            throw new Exception("Session id error");
+        }
+
+    }
+
+
+    /**
      * @param $id
      * @return mixed
      * @throws Exception
@@ -43,6 +65,36 @@ class UserManager {
         }
     }
 
+    public function findByEmail($email)
+    {
+        if(is_string($email))
+        {
+            $email  = $this->db->quote($email);
+            $query  = "SELECT * FROM user WHERE email = ".$email;
+            var_dump($query);
+            $data   = $this->db->query($query);
+            if($data)
+            {
+                if($user = $data->fetchObject("User", array($this->db)))
+                {
+                    return $user;
+                }
+                else
+                {
+                    throw new Exception('No user with this email');
+                }
+            }
+            else
+            {
+                throw new Exception('Query error');
+            }
+        }
+        else
+        {
+            throw new Exception('Invalid email format');
+        }
+    }
+
 
 
     /**
@@ -51,23 +103,24 @@ class UserManager {
      * @param $password
      * @param $passwordRepeat
      * @param $email
+     * @param $emailRepeat
      * @return array
      * @throws Exception
      */
-    public function create($lastname, $firstname, $password, $passwordRepeat, $email)
+    public function create($lastname, $firstname, $password, $passwordRepeat, $email, $emailRepeat)
     {
+        $errors = array();     /*///////===========////////*/
         $user = new User($this->db);
         try
         {
             $user->setLastName($lastname);
             $user->setFirstName($firstname);
             $user->setPassword($password, $passwordRepeat);
-            $user->setEmail($email);
+            $user->setEmail($email, $emailRepeat);
         }
         catch (Exception $e)
         {
             $errors[] = $e->getMessage();
-            return $errors;
         }
 
         if(count($errors) == 0)
@@ -77,9 +130,9 @@ class UserManager {
             $password   = $user->getHash();
             $email      = $this->db->quote($user->getEmail());
 
-            $query      = '  INSERT INTO user(l_name, f_name, password, email)
-                             VALUES("'.$lastname.'", "'.$firstname.'", "'.$password.'", "'.$email.'")';
-
+            $query      = "  INSERT INTO user(l_name, f_name, password, email)
+                             VALUES(".$lastname.", ".$firstname.", '".$password."', ".$email.")";
+            var_dump($query);
             $data = $this->db->exec($query);
 
             if($data)
@@ -109,9 +162,10 @@ class UserManager {
                 throw new Exception('Insert error');
             }
 
-
-
-
+        }
+        else
+        {
+            return $errors;
         }
 
 

@@ -1,0 +1,18 @@
+<form action="" method="POST">
+    <input type="hidden" name="action" value="connect">
+    <div class="row">
+        <div class="medium-6 columns">
+            <label>Adresse email
+                <input name="email" type="email" placeholder="" value="<?= (isset($email)) ? htmlentities($email) : "";?>"required>
+            </label>
+        </div>
+        <div class="medium-6 columns">
+            <label>Mot de passe
+                <input name="password" type="password" placeholder="" required>
+            </label>
+        </div>
+        <div class="small-12 columns">
+            <button class="success button" type="submit">Se connecter</button>
+        </div>
+    </div>
+</form>

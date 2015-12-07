@@ -50,11 +50,11 @@
 	{
 		if ( isset($handlers[$_GET['page']]) )
 		{
-			require('apps/handler_'.$handlers[$_GET['page']].'.php');
+			require('apps/handlers/handler_'.$handlers[$_GET['page']].'.php');
 		}
 		else if ( in_array($_GET['page'], $handlers) )
 		{
-			require('apps/handler_'.$_GET['page'].'.php');
+			require('apps/handlers/handler_'.$_GET['page'].'.php');
 		}
 		if ( in_array($_GET['page'], $ways) )
 		{
@@ -64,4 +64,6 @@
 
 	require('apps/skel.php');
 
+
+	$_SESSION['success'] = "";
 ?>

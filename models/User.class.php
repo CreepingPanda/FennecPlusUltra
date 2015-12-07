@@ -169,14 +169,21 @@ class User {
      * @return bool
      * @throws Exception
      */
-    public function setEmail($email)
+    public function setEmail($email, $emailRepeat)
     {
         if (strlen($email) > 5 && strlen($email) < 127)
         {
             if (preg_match("#^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,5}$#", $email))
             {
-                $this ->email = $email;
-                return true;
+                if($email == $emailRepeat)
+                {
+                    $this ->email = $email;
+                    return true;
+                }
+                else
+                {
+                    throw new Exception('Email repeat not right');
+                }
             }
             else
             {
