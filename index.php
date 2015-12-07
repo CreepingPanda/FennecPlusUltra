@@ -3,10 +3,17 @@
 // ________ TOOLS ________
 	session_start();
 
-	$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
-
-	if ( $database === false )
-		die("Oups, le stagiaire a débranché la base de données.");
+	try
+	{
+		$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
+	}
+	catch (Exception $e)
+	{
+		// ____ Message dev :
+		die("Erreur : ".$e->getMessage());
+		// ____ Message prod :
+		// die("Le con de stagiaire a débranché la base de données.");
+	}
 
 	spl_autoload_register(function ($class)
 	{

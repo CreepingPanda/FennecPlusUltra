@@ -34,18 +34,14 @@ class CartManager
 			}
 			else
 			{
-				return "Panier introuvable.";
+				throw new Exception("Panier introuvable.");
 			}
 		}
 		else
 		{
-			return "Erreur - Base de données.";
+			throw new Exception("Erreur - Base de données.");
 		}
 	}
-
-
-
-
 
 
 }
