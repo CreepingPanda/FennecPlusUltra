@@ -8,7 +8,7 @@
 	if ( $database === false )
 		die(mysqli_connect_error());
 
-	sp_autoload_register(function ($class)
+	spl_autoload_register(function ($class)
 	{
 		require('models/'.$class.'.class.php');
 	});
