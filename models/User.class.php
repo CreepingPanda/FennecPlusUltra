@@ -200,6 +200,11 @@ class User {
         }
     }
 
+    /**
+     * @param $password
+     * @return bool
+     * @throws Exception
+     */
     public function verifPassword($password)
     {
         if($retour = password_verify($password, $this->password))
