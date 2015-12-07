@@ -6,6 +6,7 @@ class Cart
 
 // ________ PROPRIETES ________
 	private $database;
+	
 	private $id;
 
 	private $id_user;
@@ -93,14 +94,51 @@ class Cart
 
 
 // ________ SETTERS ________
+	public function setUser(User $user)
+	{
+		$this->user = $user;
+		$this->id_user = $user->getId();
+		return true;
+	}
+	public function setAdLivraison(Ad_livraison $ad_livraison)
+	{
+		$this->ad_livraison = $ad_livraison;
+		$this->id_ad_livraison = $ad_livraison->getId();
+		return true;
+	}
+	public function setAdFacturation(Ad_facturation $ad_facturation)
+	{
+		$this->ad_facturation = $ad_facturation;
+		$this->id_ad_facturation = $ad_facturation->getId();
+		return true;
+	}
+	public function setPaymentMode(Payment_mode $payment_mode)
+	{
+		$this->payment_mode = $payment_mode;
+		$this->id_payment_mode = $payment_mode->getId();
+		return true;
+	}
+	public function setShippingMode(Shipping_mode $shipping_mode)
+	{
+		$this->shipping_mode = $shipping_mode;
+		$this->id_shipping_mode = $shipping_mode->getId();
+		return true;
+	}
+	public function setStatus($status)
+	{
+		if ( is_int($status) )
+		{
+			$this->status = $status;
+			return true;
+		}
+		else
+		{
+			return "Statut incorrect. Catastrophe. Processus d'auto-destruction activé.";
+		}
+	}
+// ________________
 
 
-
-
-
-
-
-
-
+}
 
 ?>
