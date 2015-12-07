@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 07 Décembre 2015 à 15:15
+-- Généré le: Lun 07 Décembre 2015 à 16:52
 -- Version du serveur: 5.5.44-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.11
 
@@ -62,13 +62,19 @@ CREATE TABLE IF NOT EXISTS `ad_livraison` (
 CREATE TABLE IF NOT EXISTS `cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
-  `id_payement_mode` int(11) NOT NULL,
+  `id_ad_livraison` int(11) NOT NULL,
+  `id_ad_facturation` int(11) NOT NULL,
+  `id_payment_mode` int(11) NOT NULL,
   `id_shipping_mode` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`,`id_payement_mode`,`id_shipping_mode`),
-  KEY `id_payement_mode` (`id_payement_mode`),
-  KEY `id_shipping_mode` (`id_shipping_mode`)
+  KEY `id_user` (`id_user`,`id_payment_mode`,`id_shipping_mode`),
+  KEY `id_payement_mode` (`id_payment_mode`),
+  KEY `id_shipping_mode` (`id_shipping_mode`),
+  KEY `id_payement_mode_2` (`id_payment_mode`),
+  KEY `id_ad_livraison` (`id_ad_livraison`),
+  KEY `id_ad_facturation` (`id_ad_facturation`),
+  KEY `id_payment_mode` (`id_payment_mode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -247,9 +253,11 @@ ALTER TABLE `ad_livraison`
 -- Contraintes pour la table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`id_shipping_mode`) REFERENCES `shipping_mode` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cart_ibfk_6` FOREIGN KEY (`id_payment_mode`) REFERENCES `payment_mode` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`id_payement_mode`) REFERENCES `payment_mode` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`id_shipping_mode`) REFERENCES `shipping_mode` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cart_ibfk_4` FOREIGN KEY (`id_ad_livraison`) REFERENCES `ad_livraison` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cart_ibfk_5` FOREIGN KEY (`id_ad_facturation`) REFERENCES `ad_facturation` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `comments`
