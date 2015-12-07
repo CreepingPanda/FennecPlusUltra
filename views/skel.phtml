@@ -1,6 +1,25 @@
-<?php
-require('apps/content.php');
-require('apps/header.php');
-require('apps/footer.php');
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="./public/css/app.css">
+	<link rel="stylesheet" href="./public/css/foundation.min.css">
 
-?>
+	
+	
+	<title>FennecPlusUltra</title>
+</head>
+<body>
+	<div class="row">
+		<?php
+		require('apps/header.php');
+		require('apps/content.php');
+		require('apps/footer.php');
+
+		?>
+		
+	</div>
+	<script type="text/javascript" src="./public/js/foundation.min.js"></script>
+	<script type="text/javascript" src="./public/js/app.js"></script>
+</body>
+</html>
