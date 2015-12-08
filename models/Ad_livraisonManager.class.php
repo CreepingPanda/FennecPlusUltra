@@ -136,17 +136,7 @@ class Ad_livraisonManager
 			throw new Exception("Catastrophe base de données.");
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
+// ________________
 
 
 }
