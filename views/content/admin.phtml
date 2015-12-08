@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="small-12">
+        <h2>Ajout d'un article</h2>
+
+        <form action="?page=item" method="POST">
+            <input type="hidden" name="action" value="add">
+
+            <div class="row">
+                <div class="medium-6 columns">
+                    <label>Category*
+                        <select name="category" id="category">
+                            <option value="1">Category 1</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-6 columns">
+                    <label>Name*
+                        <input name="name" type="text" placeholder="3 à 255 caractères"
+                               value="<?= (isset($name)) ? htmlentities($name) : ""; ?>" required>
+                    </label>
+                </div>
+                <div class="medium-6 columns">
+                    <label>Description courte*
+                        <textarea name="short_descr" type="text" placeholder="3 à 255 caractères" required><?= (isset($short_descr)) ? htmlentities($short_descr) : ""; ?></textarea>
+                    </label>
+                </div>
+                <div class="medium-12 columns">
+                    <label>Description longue*
+                        <textarea name="description" type="text" placeholder="5 à 2047 caractères" required rows="5" ><?= (isset($description)) ? htmlentities($description) : ""; ?></textarea
+                    </label>
+                </div>
+                <div class="medium-6 columns">
+                    <label>Prix*
+                        <input name="password" type="password" placeholder="8 à 63 caractères" required>
+                        <span class="input-group-label">€</span>
+                    </label>
+                </div>
+                <div class="medium-6 columns">
+                    <label>Stock*
+                        <input name="passwordRepeat" type="password" placeholder="Mot de passe de confirmation"
+                               required>
+                    </label>
+                </div>
+            </div>
+
+            <div class="small-12 columns">
+                <button class="success button" type="submit">Envoyer</button>
+            </div>
+    </div>
+    </form>
+</div>
+</div>

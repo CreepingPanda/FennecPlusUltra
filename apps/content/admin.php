@@ -1,3 +1,3 @@
 <?php
-require('views/admin.phtml');
+require('views/content/admin.phtml');
 ?>

@@ -121,7 +121,7 @@ class Item
     {
         if(is_string($description))
         {
-            if(strlen($description) >  3 && strlen($description) <= 2047)
+            if(strlen($description) >=  3 && strlen($description) <= 2047)
             {
                 $this->descr = $description;
                 return true;
@@ -146,7 +146,7 @@ class Item
     {
         if(is_string($shortdescription))
         {
-            if(strlen($shortdescription) >  3 && strlen($shortdescription) <= 2047)
+            if(strlen($shortdescription) >=  3 && strlen($shortdescription) <= 511)
             {
                 $this->short_descr = $shortdescription;
                 return true;
