@@ -55,9 +55,9 @@ class ItemManager
             $price              = $this->db->quote($item->getPrice());
             $stock              = $this->db->quote($item->getStock());
 
+
             $query      =   "  INSERT INTO item(id_subcategory, name, descr, short_descr, price, stock)
                                VALUES(".$subcategory->getId().", ".$name.", ".$description.", ".$shortDescription.", ".$price.", ".$stock.")";
-            var_dump($query);
             $data   = $this->db->exec($query);
 
             if($data)
