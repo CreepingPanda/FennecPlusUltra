@@ -3,9 +3,11 @@
 // ________ TOOLS ________
 	session_start();
 
+
 	try
 	{
-		$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
+		/*$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");*/
+		$database = new PDO("mysql:host=localhost;dbname=fenneccommerce", "root", "");
 	}
 	catch (Exception $e)
 	{
@@ -48,11 +50,11 @@
 	{
 		if ( isset($handlers[$_GET['page']]) )
 		{
-			require('apps/handler_'.$handlers[$_GET['page']].'.php');
+			require('apps/handlers/handler_'.$handlers[$_GET['page']].'.php');
 		}
 		else if ( in_array($_GET['page'], $handlers) )
 		{
-			require('apps/handler_'.$_GET['page'].'.php');
+			require('apps/handlers/handler_'.$_GET['page'].'.php');
 		}
 		if ( in_array($_GET['page'], $ways) )
 		{
@@ -62,4 +64,6 @@
 
 	require('apps/skel.php');
 
+
+	$_SESSION['success'] = "";
 ?>
