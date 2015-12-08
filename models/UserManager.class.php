@@ -237,41 +237,47 @@ class UserManager {
 
         if(count($errors) == 0)
         {
-            $lastName   = $this->db->quote($newUser->getLastName());
-            $firstName  = $this->db->quote($newUser->getFirstName());
-            $password   = $this->db->quote($newUser->getHash());
-            $email      = $this->db->quote($newUser->getEmail());
+            if($this->checkIfEmailExist($email) == 0)
+            {
+                $lastName   = $this->db->quote($newUser->getLastName());
+                $firstName  = $this->db->quote($newUser->getFirstName());
+                $password   = $this->db->quote($newUser->getHash());
+                $email      = $this->db->quote($newUser->getEmail());
 
-            $query      = "   UPDATE user
+                $query      = "   UPDATE user
                               SET l_name = ".$lastName.", f_name = ".$firstName.", password = ".$password.", email = ".$email."
                               WHERE id = ".$id;
-            $data       = $this->db->exec($query);
-            if($data)
-            {
-                $id     = $this->db->lastInsert();
-
-                if($id)
+                $data       = $this->db->exec($query);
+                if($data)
                 {
-                    try
+                    $id     = $this->db->lastInsert();
+
+                    if($id)
                     {
-                        return $this->findById($id);
+                        try
+                        {
+                            return $this->findById($id);
+                        }
+                        catch(Exception $e)
+                        {
+                            $errors[] = $e->getMessage();
+                            return $errors;
+                        }
                     }
-                    catch(Exception $e)
+                    else
                     {
-                        $errors[] = $e->getMessage();
-                        return $errors;
+                        throw new Exception("Last id error");
                     }
                 }
                 else
                 {
-                    throw new Exception("Last id error");
+                    throw new Exception("Db error");
                 }
             }
             else
             {
-                throw new Exception("Db error");
+                throw new Exception('Email allready exist');
             }
-
         }
         else
         {
