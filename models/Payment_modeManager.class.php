@@ -80,7 +80,7 @@ class Payment_modeManager
 			}
 			else
 			{
-				throw new Exception("Erreur : Droits d'administrations requis.");
+				throw new Exception("Erreur : Droits d'administration requis.");
 			}
 
 		}
