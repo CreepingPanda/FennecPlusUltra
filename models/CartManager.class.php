@@ -42,7 +42,7 @@ class CartManager
 			throw new Exception("Erreur - Base de données.");
 		}
 	}
-	public function createCart(User $user)
+	public function create(User $user)
 	{
 		$cart = new Cart();
 

@@ -66,7 +66,7 @@ class Ad_facturationManager
 							$city = $this->database->quote($ad_facturation->getCity());
 							$complement = $this->database->quote($ad_facturation->getComplement());
 
-							$query = "INSERT INTO ad_facturation(id_user, address, post_code, city, complement)
+							$query = "INSERT INTO ad_facturation (id_user, address, post_code, city, complement)
 								VALUES (".$idUser.", '".$address."', '".$postCode."', '".$city."', '".$complement."')";
 
 							$result = $this->database->exec($query);
