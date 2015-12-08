@@ -45,7 +45,6 @@ $errors = array();
 
 	$page = 'home';
 
-
 	if ( isset($_GET['page']) )
 	{
 		if ( isset($handlers[$_GET['page']]) )
