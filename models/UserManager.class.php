@@ -76,7 +76,6 @@ class UserManager {
         {
             $email  = $this->db->quote($email);
             $query  = "SELECT * FROM user WHERE email = ".$email;
-            var_dump($query);
             $data   = $this->db->query($query);
             if($data)
             {
@@ -111,7 +110,7 @@ class UserManager {
             if($data)
             {
                 $res = $data->fetch();
-                return $res;
+                return $res['COUNT(email)'];
             }
             else
             {
@@ -140,7 +139,7 @@ class UserManager {
      */
     public function create($lastname, $firstname, $password, $passwordRepeat, $email, $emailRepeat)
     {
-        $errors = array();     /*///////===========////////*/
+        $errors = array();
         $user = new User($this->db);
         try
         {

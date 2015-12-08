@@ -47,22 +47,27 @@ if(isset($_POST['action']))
             try
             {
                 $user = $userManager->findByEmail($_POST['email']);
-                try {
-                    $user->verifPassword($_POST['password']);
-                    $_SESSION['id'] = $user->getId();
-                    $_SESSION['success'] = "Bienvenu ".htmlentities($user->getFirstName()).", :)";
-                    header('Locaction: index.php');
-                    exit;
-                }
-                catch(Exception $e)
-                {
-                    $errors[] = $e->getMessage();
-                    return $errors;
-                }
             }
             catch(Exception $e)
             {
                 $errors[] = $e->getMessage();
+            }
+            try {
+                $user->verifPassword($_POST['password']);
+            }
+            catch(Exception $e)
+            {
+                $errors[] = $e->getMessage();
+            }
+            if(count($errors) == 0)
+            {
+                $_SESSION['id'] = $user->getId();
+                $_SESSION['success'] = "Bienvenu ".htmlentities($user->getFirstName()).", :)";
+                header('Location: index.php');
+                exit;
+            }
+            else
+            {
                 return $errors;
             }
         }
