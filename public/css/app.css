@@ -16,9 +16,13 @@ li{
 .nav{
 	margin: 0;
 }
-.nav a{
+.nav a {
 	color: black;
-	margin: 10px		
+	padding: 5px;
+	border-right: 1px solid black	
+}
+.nav a .left{
+	border-left: 1px solid black;
 }
 
 .nav a:hover{
@@ -28,4 +32,12 @@ li{
 .navtop{
 	padding: 10px;
 	/*background-color: red;*/
+}
+
+
+
+/*home*/
+
+h3{
+	border-bottom: 2px solid black;
 }
