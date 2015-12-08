@@ -11,7 +11,7 @@ class SubCategory
 	
 
 
-	public function__construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -19,23 +19,18 @@ class SubCategory
 
 	public function getId()
 	{
-		return $this->id
+		return $this->id;
 	}
 	public function getCategory()
-	 {
-		if (!$this->category) 
+	{
+		if (!$this->category)
 		{
 			$categoryManager = new CategoryManager($this->db);
 			$this->category = $categoryManager->findById($this->id_category);
-
 		}
 		return $this->category;
 	}
 
-	public function getCategory()
-	{
-		return $this->id_category;
-	}
 	public function getName()
 	{
 		return $this->name;

@@ -5,7 +5,7 @@ class SubCategoryManager
 
 	public function __construct($db)
 	{
-		$this->db = $db
+		$this->db = $db;
 	}
 		public function create($name, $description, $image, Category $category){
 
@@ -23,16 +23,16 @@ class SubCategoryManager
 					$valide = $subCategory->setCategory($category);
 					if ($valide === true){
 
-							$description = mysqli_real_escape_string($this->db, $subCategory->getDescription());
-							$name = mysqli_real_escape_string($this->db, $subCategory->getName());
-							$image = mysqli_real_escape_string($this->db, $subCategory->getImage());
+							$description = $this->db>quote($subCategory->getDescription());
+							$name = $this->db>quote($subCategory->getName());
+							$image = $this->db>quote($subCategory->getImage());
 							$id_category = $subCategory->getCategory()->getId();
 							$query = "INSERT INTO subcategory (description, name, image, id_category) VALUES ('".$description."', '".$name."', '".$image."', '".$id_category."')";
 							echo $query;
-							$res = mysqli_query($this->db, $query);
+							$res = $this->db->query ($query);
 							if ($res)
 							{
-								$id = mysqli_query($this->db);
+								$id = $this->db());
 								if ($id) 
 								{
 									return $this -> findById($id); 	
@@ -69,7 +69,7 @@ class SubCategoryManager
 	{
 	 	$id = $subCategory->getId();
 	 	$query = "DELETE FROM subcategory WHERE id='".$id."'";
-	 	$res = mysqli_query($this->db, $query);
+	 	$res = $this->db->query($query);
 	 	if($res)
 	 	{
 	 		return true;
@@ -85,12 +85,13 @@ class SubCategoryManager
 	public function update(SubCategory $subCategory)
 	{
 		$id = $subCategory->getid();
-		$description = mysqli_real_escape_string($this->db, $subCategory->getDescription());
-		$name = mysqli_real_escape_string($this->db, $subCategory->getName());
-		$image = mysqli_real_escape_string($this->db, $subCategory->getImage());
+
+		$description = $this->db>quote($subCategory->getDescription());
+		$name = $this->db>quote($$subCategory->getName());
+		$image =$this->db>quote($subCategory->getImage());
 
 		$query ="UPDATE subcategory SET name='".$name."' description='".$description."' image='".$image."' WHERE id='".$id."'";
-		$res = mysqli_query($this->db, $query);
+		$res = $this->db->query($query);
 		if ($res)
 		{
 			return $this ->findById($id);
@@ -105,11 +106,12 @@ class SubCategoryManager
 	public function findById($id)
 	{
 		$id = intval($id);
-		$query = "SELECT * from subcategory WHERE ed='".$id."'";
-		$res = mysqli_query($this->db, $query);	
+		$query = "SELECT * from subcategory WHERE id=".$id;
+		$res =  $this->db->query($query);
 		if ($res) 
 		{
-			$subcategory = mysqli_fetch_object($res, "subcategory", array($this->db));
+			$subcategory = $res->fetchObject("Subcategory", array($this->db));
+			return $subcategory;
 		}
 		else
 		{
@@ -120,11 +122,11 @@ class SubCategoryManager
 	public function getList($id)
 	{
 		$query = "SELECT * FROM subcategory WHERE id_category = ".$id;
-		$rep = mysqli_query($this ->db, $query);
+		$rep = $this->db->query($query);
 		if ($rep) 
 		{	
 			$list = array();
-			while ( $renvoi= mysqli_fetch_object($rep, "SubCategory", array($this->db))) 
+			while ( $renvoi= $res->fetchObject("SubCategory", array($this->db))) 
 			{
 				$list[] = $renvoi;
 			}
