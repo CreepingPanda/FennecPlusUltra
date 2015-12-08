@@ -3,7 +3,6 @@
 // ________ TOOLS ________
 	session_start();
 
-
 	try
 	{
 		$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
