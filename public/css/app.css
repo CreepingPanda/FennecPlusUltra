@@ -1,9 +1,30 @@
-.row{
-	margin-top: 20px;
-
+header{
+	margin-top: 40px;
 }
 
+.recherche{
+	margin-top: 14px;
+}
+.panier{
+	margin-top: 22px;
+}
 li{
-	
 	list-style: none;
+
+}
+.nav{
+	margin: 0;
+}
+.nav a{
+	color: black;
+	margin: 10px		
+}
+
+.nav a:hover{
+	color: #0ba200
+}
+
+.navtop{
+	padding: 10px;
+	/*background-color: red;*/
 }
