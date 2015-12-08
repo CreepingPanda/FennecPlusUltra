@@ -3,7 +3,6 @@
 // ________ TOOLS ________
 	session_start();
 
-
 	try
 	{
 		$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
@@ -14,7 +13,7 @@
 		// ____ Message dev :
 		die("Erreur : ".$e->getMessage());
 		// ____ Message prod :
-		// die("Le con de stagiaire a débranché la base de données.");
+		// die(var_dump("Le con de stagiaire a debranche la base de donnees."));
 	}
 $errors = array();
 
