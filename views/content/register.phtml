@@ -1,0 +1,39 @@
+<form action="" method="POST">
+    <input type="hidden" name="action" value="register">
+    <div class="row">
+        <div class="medium-6 columns">
+            <label>Prénom*
+                <input name="f-name" type="text" placeholder="3 à 63 caractères" value="<?= (isset($firstname)) ? htmlentities($firstname) : "";?>"required>
+            </label>
+        </div>
+        <div class="medium-6 columns">
+            <label>Nom*
+                <input name="l-name" type="text" placeholder="3 à 63 caractères" value="<?= (isset($lastname)) ? htmlentities($lastname) : "";?>"required>
+            </label>
+        </div>
+        <div class="medium-6 columns">
+            <label>Adresse email*
+                <input name="email" type="email" placeholder="5 à 127 caractères" value="<?= (isset($email)) ? htmlentities($email) : "";?>"required>
+            </label>
+        </div>
+        <div class="medium-6 columns">
+            <label>Confirmation adresse email*
+                <input name="emailRepeat" type="email" placeholder="Email de confirmation" value="<?= (isset($emailRepeat)) ? htmlentities($emailRepeat) : "";?>"required>
+            </label>
+        </div>
+        <div class="medium-6 columns">
+            <label>Mot de passe*
+                <input name="password" type="password" placeholder="8 à 63 caractères" required>
+            </label>
+        </div>
+        <div class="medium-6 columns">
+            <label>Confirmation mot de passe*
+                <input name="passwordRepeat" type="password" placeholder="Mot de passe de confirmation" required>
+            </label>
+        </div>
+
+        <div class="small-12 columns">
+            <button class="success button" type="submit">Envoyer</button>
+        </div>
+    </div>
+</form>
