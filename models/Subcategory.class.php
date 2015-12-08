@@ -4,13 +4,19 @@ class SubCategory
 	private $db;
 	private $id;
 	private $id_category;
+	private $category;
 	private $name;
 	private $description;
 	private $image;
+	
+
+
 	public function__construct($db)
 	{
 		$this->db = $db;
 	}
+	
+
 	public function getId()
 	{
 		return $this->id
@@ -50,38 +56,41 @@ class SubCategory
 	}
 	public function setName($name)
 	{
-		if (strlen($name) > 1 && strlen($name) < 31)
+		if (strlen($name) > 1 && strlen($name) < 255)
 		{
 			$this->name = $name;
 			return true;
 		}
 		else
 		{
-			return "text incorrect";
+			throw new Exception("text incorrect");
+			
+			
 		}
 	}
 	public function setImage($image)
 	{
-		if (strlen($image) > 1 && strlen($image) < 256)
+		if (strlen($image) > 1 && strlen($image) < 511)
 		{
 			$this->image = $image;
 			return true;
 		}
 		else
 		{
-			return "image incorect";
+			throw new Exception("image incorect");
+			
 		}
 	}
 	public function setDescription($description)
 	{
-		if (strlen($description) > 1 && strlen($description) < 256)
+		if (strlen($description) > 1 && strlen($description) < 511)
 		{
 			$this->description = $description;
 			return true;
 		}
 		else
 		{
-			return "text incorrect";
+			throw new Exception("text incorrect");
 		}
 	}
 
