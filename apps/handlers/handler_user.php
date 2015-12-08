@@ -25,7 +25,7 @@ if(isset($_POST['action']))
             {
                 $_SESSION['success'] = "Votre inscription est réussite!";
                 $_SESSION['id']      = $data->getId();
-                header("Location: index.php");
+                /*header("Location: index.php");*/
             }
             else
             {

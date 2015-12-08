@@ -65,6 +65,11 @@ class UserManager {
         }
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     * @throws Exception
+     */
     public function findByEmail($email)
     {
         if(is_string($email))
@@ -95,6 +100,32 @@ class UserManager {
         }
     }
 
+    public function checkIfEmailExist($email)
+    {
+        if(is_string($email))
+        {
+            $email  = $this->db->quote($email);
+            $query  = "SELECT COUNT(email) FROM user WHERE email =".$email;
+            $data   = $this->db->query($query);
+
+            if($data)
+            {
+                $res = $data->fetch();
+                return $res;
+            }
+            else
+            {
+                throw new Exception("Db error");
+            }
+        }
+        else
+        {
+            throw new Exception('Invalid email format');
+        }
+    }
+
+
+
 
 
     /**
@@ -117,49 +148,129 @@ class UserManager {
             $user->setFirstName($firstname);
             $user->setPassword($password, $passwordRepeat);
             $user->setEmail($email, $emailRepeat);
+            $this->checkIfEmailExist($email);
         }
         catch (Exception $e)
         {
             $errors[] = $e->getMessage();
         }
 
+
         if(count($errors) == 0)
         {
-            $lastname   = $this->db->quote($user->getLastName());
-            $firstname  = $this->db->quote($user->getFirstName());
-            $password   = $user->getHash();
-            $email      = $this->db->quote($user->getEmail());
+            if($this->checkIfEmailExist($email) == 0)
+            {
+                $lastname   = $this->db->quote($user->getLastName());
+                $firstname  = $this->db->quote($user->getFirstName());
+                $password   = $user->getHash();
+                $email      = $this->db->quote($user->getEmail());
 
-            $query      = "  INSERT INTO user(l_name, f_name, password, email)
+                $query      = "  INSERT INTO user(l_name, f_name, password, email)
                              VALUES(".$lastname.", ".$firstname.", '".$password."', ".$email.")";
-            var_dump($query);
-            $data = $this->db->exec($query);
+                $data = $this->db->exec($query);
 
+                if($data)
+                {
+                    $id = $this->db->lastInsertId();
+                    if($id)
+                    {
+                        try
+                        {
+                            return $this -> findById($id);
+                        }
+                        catch(Exception $e)
+                        {
+                            $errors[] = $e->getMessage();
+                            return $errors;
+                        }
+
+                    }
+                    else
+                    {
+                        throw new Exception('Last insert Id error');
+                    }
+
+                }
+                else
+                {
+                    throw new Exception('Insert error');
+                }
+            }
+            else
+            {
+                throw new Exception('Email allready exist');
+            }
+        }
+        else
+        {
+            return $errors;
+        }
+    }
+
+
+    /**
+     * @param User $user
+     * @param $lastName
+     * @param $firstName
+     * @param $password
+     * @param $passwordRepeat
+     * @param $email
+     * @param $emailRepeat
+     * @return array
+     * @throws Exception
+     */
+    public function update(User $user, $lastName, $firstName, $password, $passwordRepeat, $email, $emailRepeat)
+    {
+        $id     = $user->getId();
+        $newUser   = new User;
+        try
+        {
+            $newUser->setLastName($lastName);
+            $newUser->setFirstName($firstName);
+            $newUser->setPassword($password, $passwordRepeat);
+            $newUser->setEmail($email, $emailRepeat);
+
+        }
+        catch(Exception $e)
+        {
+            $errors[] = $e->getMessage();
+        }
+
+        if(count($errors) == 0)
+        {
+            $lastName   = $this->db->quote($newUser->getLastName());
+            $firstName  = $this->db->quote($newUser->getFirstName());
+            $password   = $this->db->quote($newUser->getHash());
+            $email      = $this->db->quote($newUser->getEmail());
+
+            $query      = "   UPDATE user
+                              SET l_name = ".$lastName.", f_name = ".$firstName.", password = ".$password.", email = ".$email."
+                              WHERE id = ".$id;
+            $data       = $this->db->exec($query);
             if($data)
             {
-                $id = $this->db->lastInsertId();
+                $id     = $this->db->lastInsert();
+
                 if($id)
                 {
                     try
                     {
-                       return $this -> findById($id);
+                        return $this->findById($id);
                     }
                     catch(Exception $e)
                     {
                         $errors[] = $e->getMessage();
                         return $errors;
                     }
-
                 }
                 else
                 {
-                    throw new Exception('Last insert Id error');
+                    throw new Exception("Last id error");
                 }
-
             }
             else
             {
-                throw new Exception('Insert error');
+                throw new Exception("Db error");
             }
 
         }
@@ -168,6 +279,30 @@ class UserManager {
             return $errors;
         }
 
+
+
+    }
+
+
+    /**
+     * @param User $user
+     * @return bool
+     * @throws Exception
+     */
+    public function delete(User $user)
+    {
+        $id     = $user->getId();
+        $query  = "DELETE FROM user WHERE id =".$id;
+        $data   = $this->db->query($query);
+
+        if($data)
+        {
+            return true;
+        }
+        else
+        {
+            throw new Exception("User delete successfull");
+        }
 
     }
 
