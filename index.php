@@ -12,7 +12,7 @@
 		// ____ Message dev :
 		die("Erreur : ".$e->getMessage());
 		// ____ Message prod :
-		// die("Le con de stagiaire a débranché la base de données.");
+		// die(var_dump("Le con de stagiaire a debranche la base de donnees."));
 	}
 
 	spl_autoload_register(function ($class)
