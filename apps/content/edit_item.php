@@ -1,3 +1,3 @@
 <?php
-require('views/content/edit_item.php');
+require('views/content/edit_item.phtml');
 ?>
