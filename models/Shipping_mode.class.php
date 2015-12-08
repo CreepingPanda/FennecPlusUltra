@@ -25,7 +25,7 @@ class Shipping_mode
 // ________________
 
 
-// ________ GETERS ________
+// ________ GETTERS ________
 	public function getId()
 	{
 		return $this->id;
