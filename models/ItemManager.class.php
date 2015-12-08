@@ -32,7 +32,7 @@ class ItemManager
 
     public function create(Subcategory $subcategory, $name, $descr, $short_descr, $price, $stock)
     {
-        $errors[] = array();
+        $errors = array();
         $item = new Item($this->db);
         try
         {
@@ -57,7 +57,7 @@ class ItemManager
 
             $query      =   "  INSERT INTO item(id_subcategory, name, descr, short_descr, price, stock)
                                VALUES(".$subcategory->getId().", ".$name.", ".$description.", ".$shortDescription.", ".$price.", ".$stock.")";
-
+            var_dump($query);
             $data   = $this->db->exec($query);
 
             if($data)

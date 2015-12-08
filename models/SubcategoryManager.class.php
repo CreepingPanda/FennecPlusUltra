@@ -105,11 +105,11 @@ class SubCategoryManager
 	public function findById($id)
 	{
 		$id = intval($id);
-		$query = "SELECT * from subcategory WHERE id='".$id."'";
+		$query = "SELECT * from subcategory WHERE id=".$id;
 		$res =  $this->db->query($query);
 		if ($res) 
 		{
-			$subcategory = $res->fetchObject("subcategory", array($this->db));
+			$subcategory = $res->fetchObject("Subcategory", array($this->db));
 			return $subcategory;
 		}
 		else
