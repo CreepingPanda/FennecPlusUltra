@@ -133,7 +133,7 @@ class Cart
 		}
 		else
 		{
-			return "Statut incorrect. Catastrophe. Processus d'auto-destruction activé.";
+			throw new Exception("Statut incorrect. Catastrophe. Processus d'auto-destruction activé.");
 		}
 	}
 // ________________
