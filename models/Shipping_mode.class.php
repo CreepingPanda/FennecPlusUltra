@@ -13,7 +13,7 @@ class Shipping_mode
 	private $value;
 	private $method;
 	private $delay_min;
-	private delay_max;
+	private $delay_max;
 // ________________
 
 

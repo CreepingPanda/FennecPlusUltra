@@ -38,7 +38,7 @@ class Payment_modeManager
 		}
 		else
 		{
-			throw new ("Erreur - Base de données.");
+			throw new Exception("Erreur - Base de données.");
 		}
 	}
 	public function create(User $currentUser, $name)
