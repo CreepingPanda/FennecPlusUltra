@@ -5,7 +5,7 @@ class SubCategoryManager
 
 	public function __construct($db)
 	{
-		$this->db = $db
+		$this->db = $db;
 	}
 		public function create($name, $description, $image, Category $category){
 
@@ -105,11 +105,12 @@ class SubCategoryManager
 	public function findById($id)
 	{
 		$id = intval($id);
-		$query = "SELECT * from subcategory WHERE ed='".$id."'";
-		$res = mysqli_query($this->db, $query);	
+		$query = "SELECT * from subcategory WHERE id='".$id."'";
+		$res =  $this->db->query($query);
 		if ($res) 
 		{
-			$subcategory = mysqli_fetch_object($res, "subcategory", array($this->db));
+			$subcategory = $res->fetchObject("subcategory", array($this->db));
+			return $subcategory;
 		}
 		else
 		{
