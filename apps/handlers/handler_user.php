@@ -38,7 +38,7 @@ if(isset($_POST['action']))
     }
 
 
-    elseif($_POST['action'] == "connect")
+    else if($_POST['action'] == "connect")
     {
         if(isset($_POST['email'], $_POST['password']))
         {
@@ -73,4 +73,11 @@ if(isset($_POST['action']))
         }
     }
 
+} 
+else if (isset($_GET['action']) && $_GET['action'] == "logout")
+{
+    session_destroy();
+    $_SESSION = array();
+    header('Location: index.php');
+    exit;
 }
