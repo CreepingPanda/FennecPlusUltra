@@ -14,6 +14,7 @@ class Item
     private $note;
     private $price;
     private $stock;
+    private $photos = array();
 
 
     public function __construct($db)
@@ -58,8 +59,16 @@ class Item
     {
         return $this->stock;
     }
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
 
 
+    /**
+     * @param Subcategory $subcategory
+     * @return bool
+     */
     public function setSubcategory(Subcategory $subcategory)
     {
         $this->subcategory = $subcategory;
@@ -67,6 +76,10 @@ class Item
         return true;
     }
 
+    /**
+     * @param Promo $promo
+     * @return bool
+     */
     public function setPromo(Promo $promo)
     {
         $this->promo = $promo;
@@ -74,6 +87,11 @@ class Item
         return true;
     }
 
+    /**
+     * @param $name
+     * @return bool
+     * @throws Exception
+     */
     public function setName($name)
     {
         if(is_string($name))
@@ -81,6 +99,7 @@ class Item
             if(strlen(trim($name)) >  3 && strlen(trim($name)) <= 255)
             {
                 $this->name = $name;
+                return true;
             }
             else
             {
@@ -93,13 +112,19 @@ class Item
         }
     }
 
+    /**
+     * @param $description
+     * @throws Exception
+     * @return bool
+     */
     public function setDescription($description)
     {
         if(is_string($description))
         {
-            if(strlen($description) >  3 && strlen($description) <= 255)
+            if(strlen($description) >  3 && strlen($description) <= 2047)
             {
                 $this->descr = $description;
+                return true;
             }
             else
             {
@@ -112,6 +137,112 @@ class Item
         }
     }
 
+    /**
+     * @param $shortdescription
+     * @throws Exception
+     * @return bool
+     */
+    public function setShortDescription($shortdescription)
+    {
+        if(is_string($shortdescription))
+        {
+            if(strlen($shortdescription) >  3 && strlen($shortdescription) <= 2047)
+            {
+                $this->short_descr = $shortdescription;
+                return true;
+            }
+            else
+            {
+                throw new Exception('Short description length error');
+            }
+        }
+        else
+        {
+            throw new Exception('Invalid format short description');
+        }
+    }
 
+    /**
+     * @param $note
+     * @throws Exception
+     * @return bool
+     */
+    public function setNote($note)
+    {
+        $note = intval($note);
+        if( $note >= 0 && $note <= 5 )
+        {
+            $this->note = $note;
+            return true;
+        }
+        else
+        {
+            throw new Exception('Invalid note');
+        }
+    }
 
+    /**
+     * @param $price
+     * @throws Exception
+     */
+    public function setPrice($price)
+    {
+        if(is_numeric($price))
+        {
+            $this->price = $price;
+        }
+        elseif(strpos($price, ","))
+        {
+            $price = str_replace(",", ".", $price);
+            if(is_numeric($price))
+            {
+                $this->price = $price;
+            }
+            else
+            {
+                throw new Exception('Invalid price format');
+            }
+        }
+        else
+        {
+            throw new Exception("Invalid price format");
+        }
+    }
+
+    /**
+     * @param string $stock
+     * @throws Exception
+     */
+    public function setStock($stock = "")
+    {
+        if($stock == "")
+        {
+            $this->stock = $stock;
+        }
+        else
+        {
+            $stock = intval($stock);
+            if($stock >= 0 && $stock <= 9999)
+            {
+                $this->stock;
+            }
+            else
+            {
+                throw new Exception('Invalid format stock');
+            }
+        }
+
+    }
+
+    public function setPhotos(Photo_item $photo_item)
+    {
+        if(is_object($photo_item))
+        {
+            $this->photos[] = $photo_item;
+        }
+        else
+        {
+            throw new Exception('Invalid photo item format');
+        }
+    }
 }
