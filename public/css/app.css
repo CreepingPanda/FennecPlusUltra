@@ -15,6 +15,7 @@ li{
 }
 .nav{
 	margin: 0;
+	text-align: center;
 }
 .nav a {
 	color: black;
@@ -29,15 +30,102 @@ li{
 	color: #0ba200
 }
 
+
 .navtop{
 	padding: 10px;
 	/*background-color: red;*/
 }
 
 
+/* ==============================
+	SLIDER
+============================== */
+.slide{
+	overflow: hidden;
+}
 
+.slide .sl-img{
+	width: 65%;
+	float: left;
+}
+
+.slide .sl-text{
+	width: 33%;
+	float: right;
+}
+
+.slide .slt-title{
+	font-size:26px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	font-weight: 300;
+	background: none;
+	text-transform: none;
+	color: #000;
+	padding: 0;
+}
+
+.slide .slt-text{
+	font-size:20px;
+	color: #888;
+}
 /*home*/
 
 h3{
 	border-bottom: 2px solid black;
+
 }
+.categorie{
+	margin-top: 30px;
+	color: white;
+	text-align: center;
+}
+.categorie a img:hover{
+	color: red;
+}
+.orange{
+	background-color: #FF8900;
+	padding: 30px;
+}
+.vert{
+	padding: 30px;
+
+	background-color: #028600 
+}
+.gris{
+	padding: 30px;
+
+	background-color: #969696
+
+}
+.bleu{
+	padding: 30px;
+
+	background-color: #5268FF;
+}
+.fnoir{
+	margin-top: 30px;
+	text-align: center;
+}
+.fnoir img{
+
+	width: 30%;
+
+}
+
+.slide .slt-title{
+	font-size:26px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	font-weight: 300;
+	background: none;
+	text-transform: none;
+	color: #000;
+	padding: 0;
+}
+
+.slide .slt-text{
+	font-size:20px;
+	color: #888;
+}
+
