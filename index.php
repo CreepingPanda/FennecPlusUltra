@@ -15,6 +15,7 @@
 		// ____ Message prod :
 		// die(var_dump("Le con de stagiaire a debranche la base de donnees."));
 	}
+$errors = array();
 
 	spl_autoload_register(function ($class)
 	{
@@ -43,7 +44,7 @@
 		'cart'=>'cart', 'address'=>'cart', 'payment'=>'cart');
 
 	$page = 'home';
-	$errors = array();
+
 
 	if ( isset($_GET['page']) )
 	{
