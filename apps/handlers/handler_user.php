@@ -25,7 +25,8 @@ if(isset($_POST['action']))
             {
                 $_SESSION['success'] = "Votre inscription est réussite!";
                 $_SESSION['id']      = $data->getId();
-                /*header("Location: index.php");*/
+                header("Location: index.php");
+                exit;
             }
             else
             {
@@ -41,16 +42,29 @@ if(isset($_POST['action']))
     {
         if(isset($_POST['email'], $_POST['password']))
         {
+            $email = $_POST['email'];
             $userManager    = new UserManager($database);
-            if ($user = $userManager->findByEmail($_POST['email']))
+            try
             {
-                return $user;
+                $user = $userManager->findByEmail($_POST['email']);
+                try {
+                    $user->verifPassword($_POST['password']);
+                    $_SESSION['id'] = $user->getId();
+                    $_SESSION['success'] = "Bienvenu ".htmlentities($user->getFirstName()).", :)";
+                    header('Locaction: index.php');
+                    exit;
+                }
+                catch(Exception $e)
+                {
+                    $errors[] = $e->getMessage();
+                    return $errors;
+                }
             }
-            else
+            catch(Exception $e)
             {
-                throw new Exception('Find by email crash!');
+                $errors[] = $e->getMessage();
+                return $errors;
             }
-            var_dump($user);
         }
     }
 
