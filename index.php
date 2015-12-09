@@ -6,7 +6,7 @@
 	try
 	{
 		$database = new PDO("mysql:host=192.168.1.23;dbname=fenneccommerce", "fennec", "fennec");
-		/*$database = new PDO("mysql:host=localhost;dbname=fenneccommerce", "root", "");*/
+//		$database = new PDO("mysql:host=localhost;dbname=fenneccommerce", "root", "");
 	}
 	catch (Exception $e)
 	{

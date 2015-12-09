@@ -28,11 +28,10 @@ class SubCategoryManager
 							$image = $this->db>quote($subCategory->getImage());
 							$id_category = $subCategory->getCategory()->getId();
 							$query = "INSERT INTO subcategory (description, name, image, id_category) VALUES ('".$description."', '".$name."', '".$image."', '".$id_category."')";
-							echo $query;
-							$res = $this->db->query ($query);
+							$res = $this->db->query($query);
 							if ($res)
 							{
-								$id = $this->db());
+								$id = $this->db();
 								if ($id) 
 								{
 									return $this -> findById($id); 	
@@ -106,11 +105,11 @@ class SubCategoryManager
 	public function findById($id)
 	{
 		$id = intval($id);
-		$query = "SELECT * from subcategory WHERE id='".$id."'";
+		$query = "SELECT * from subcategory WHERE id=".$id;
 		$res =  $this->db->query($query);
 		if ($res) 
 		{
-			$subcategory = $res->fetchObject("subcategory", array($this->db));
+			$subcategory = $res->fetchObject("Subcategory", array($this->db));
 			return $subcategory;
 		}
 		else
@@ -126,7 +125,7 @@ class SubCategoryManager
 		if ($rep) 
 		{	
 			$list = array();
-			while ( $renvoi= $res->fetchObject("SubCategory", array($this->db))) 
+			while ( $renvoi= $rep->fetchObject("SubCategory", array($this->db)))
 			{
 				$list[] = $renvoi;
 			}
