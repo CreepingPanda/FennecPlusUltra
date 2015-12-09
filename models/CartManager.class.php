@@ -170,6 +170,7 @@ class CartManager
 					for ( $i=0; $i<count($_SESSION['order']); $i++ )
 					{
 						$itemArray = explode(', ', $_SESSION['order'][$i]);
+						// ____ 0 : $idItem \ 1 : $quantity ____
 
 						$item = $manager->findById($itemArray[0]);
 						if ( $item )
