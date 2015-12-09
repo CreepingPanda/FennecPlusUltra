@@ -21,7 +21,6 @@ class ItemManager
         $id     = intval($id);
         $query  = "SELECT * FROM item WHERE id = ".$id;
         $data   = $this->db->query($query);
-
         if($data)
         {
             $item = $data->fetchObject("Item", array($this->db));
@@ -153,7 +152,7 @@ class ItemManager
             }
             else
             {
-                throw new Exception('Db erro');
+                throw new Exception('Db error');
             }
 
 

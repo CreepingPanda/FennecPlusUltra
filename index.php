@@ -65,4 +65,5 @@ $errors = array();
 
 
 	$_SESSION['success'] = "";
+	$_SESSION['errors']	 = "";
 ?>

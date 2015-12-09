@@ -5,7 +5,11 @@ if(count($errors)>0)
         require('views/errors.phtml');
     }
 }
-if(isset($_SESSION['success']) && $_SESSION['success'] != "")
+elseif(isset($_SESSION['errors']) && $_SESSION['errors'] != "")
+{
+    require('views/errors_session.phtml');
+}
+elseif(isset($_SESSION['success']) && $_SESSION['success'] != "")
 {
     require('views/success.phtml');
 }

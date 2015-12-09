@@ -13,7 +13,6 @@ if(isset($_POST['action']))
             try
             {
                 $itemManager->create($subcategory, $_POST['name'], $_POST['description'], $_POST['short_descr'], $_POST['price'], $_POST['stock']);
-
             }
             catch(Exception $e)
             {
@@ -23,8 +22,6 @@ if(isset($_POST['action']))
             {
                 $_SESSION['success']    = "Produit a bien  été :)";
             }
-
-
         }
 
     }
