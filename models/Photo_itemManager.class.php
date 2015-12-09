@@ -43,7 +43,7 @@ class Photo_itemManager
 	}
 	public function add(Item $item, User $currentUser, $url)
 	{
-		$photo_item = new Photo_item();
+		$photo_item = new Photo_item($this->database);
 
 		if ( $currentUser )
 		{
@@ -55,11 +55,10 @@ class Photo_itemManager
 					$set = $photo_item->setUrl($url);
 					if ( $set === true )
 					{
-						$idItem = intval($photo_item->getId());
+						$idItem = intval($item->getId());
 						$url = $this->database->quote($photo_item->getUrl());
 						$query = "INSERT INTO photo_item (id_item, url)
-							VALUES (".$idItem.", '".$url."')";
-
+							VALUES (".$idItem.", ".$url.")";
 						$result = $this->database->exec($query);
 						if ( $result )
 						{

@@ -1,5 +1,4 @@
 <?php
-
 class Item
 {
     private $db;
@@ -234,11 +233,16 @@ class Item
 
     }
 
-    public function setPhotos(Photo_item $photo_item)
+
+    /**
+     * @param array $photo_item
+     * @throws Exception
+     */
+    public function setPhotos($photo_item)
     {
-        if(is_object($photo_item))
+        if(is_array($photo_item))
         {
-            $this->photos[] = $photo_item;
+            $this->photos = $photo_item;
         }
         else
         {

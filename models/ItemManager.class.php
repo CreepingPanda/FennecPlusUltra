@@ -2,10 +2,7 @@
 
 class ItemManager
 {
-
     private $db;
-
-
     public function __construct($db)
     {
         $this->db = $db;
@@ -85,7 +82,35 @@ class ItemManager
             {
                 throw new Exception("Query error");
             }
+        }
+    }
 
+
+    /**
+     * @param Item $item
+     * @return mixed
+     * @throws Exception
+     */
+    public function findPhotosByItem(Item $item)
+    {
+        $id_item    = $item->getId();
+        $query      = "SELECT * FROM photo_item WHERE id_item = ".$id_item;
+        $data       = $this->db->query($query);
+        if($data)
+        {
+            $photos = $data->fetchAll(PDO::FETCH_CLASS, "Item", array($this->db));
+            if($photos)
+            {
+                return $photos;
+            }
+            else
+            {
+                throw new Exception('Fetch error');
+            }
+        }
+        else
+        {
+            throw new Exception('Query error');
         }
     }
 
