@@ -41,7 +41,7 @@ class Photo_itemManager
 			throw new Exception("Erreur - Base de données.");
 		}
 	}
-	public function add(Item $item, $url)
+	public function add(Item $item, User $currentUser, $url)
 	{
 		$photo_item = new Photo_item();
 

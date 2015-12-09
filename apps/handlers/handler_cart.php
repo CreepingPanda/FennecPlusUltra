@@ -31,12 +31,8 @@ if ( isset($_GET['action']) )
 // ________ ADD AD_LIVRAISON ________
 	else if ( $_GET['action'] == 'add_ad_livraison' )
 	{
-
-
-
-
-
 	}
+// ________________
 
 }
 
