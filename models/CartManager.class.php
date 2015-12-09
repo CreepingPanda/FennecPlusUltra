@@ -150,7 +150,9 @@ class CartManager
 								for ( $i=0; $i<count($_SESSION['order']); $i++ )
 								{
 									$itemArray = explode(', ', $_SESSION['order'][$i]);
-									if ( $itemArray[0] = $item->getId() )
+									// ____ 0 : $idItem \ 1 : $quantity ____
+
+									if ( $itemArray[0] == $item->getId() )
 									{
 										if ( $itemArray[1]+$quantity <= $item->getStock() )
 										{
@@ -162,6 +164,10 @@ class CartManager
 											$quantity = $item->getStock();
 										}
 										$_SESSION['order'][$i] = $idItem.', '.$quantity;
+									}
+									else
+									{
+										$_SESSION['order'][] = $idItem.', '.$quantity;
 									}
 								}
 							}
