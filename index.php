@@ -40,7 +40,7 @@ $errors = array();
 		'register'=>'user', 'login'=>'user', 'logout'=>'user', 'edit_profile'=>'user',
 		'category'=>'category',
 		'subcategory'=>'subcategory',
-		'item'=>'item', 'add_to_cart'=>'cart',
+		'item'=>'cart', 'add_to_cart'=>'cart',
 		'cart'=>'cart', 'address'=>'cart', 'payment'=>'cart');
 
 	$page = 'home';

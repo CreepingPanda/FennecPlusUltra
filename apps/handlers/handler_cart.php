@@ -20,6 +20,8 @@ if ( isset($_GET['action']) )
 		try
 		{
 			$add = $manager->addToCart($item, $_POST['quantity']);
+			header('Location: index.php?page=item&id='.$item->getId().'');
+			exit;
 		}
 		catch (Exception $e)
 		{
