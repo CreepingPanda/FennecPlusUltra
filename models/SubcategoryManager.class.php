@@ -28,8 +28,7 @@ class SubCategoryManager
 							$image = $this->db>quote($subCategory->getImage());
 							$id_category = $subCategory->getCategory()->getId();
 							$query = "INSERT INTO subcategory (description, name, image, id_category) VALUES ('".$description."', '".$name."', '".$image."', '".$id_category."')";
-							echo $query;
-							$res = $this->db->query ($query);
+							$res = $this->db->query($query);
 							if ($res)
 							{
 								$id = $this->db();

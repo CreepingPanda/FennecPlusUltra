@@ -54,7 +54,7 @@ class Cart
 	{
 		if ( !$this->ad_livraison )
 		{
-			$manager = new Ad_livraisonManager($this->database)
+			$manager = new Ad_livraisonManager($this->database);
 			$this->ad_livraison = $manager->findById($this->id_ad_livraison);
 		}
 		return $this->ad_livraison;
@@ -63,7 +63,7 @@ class Cart
 	{
 		if ( !$this->ad_facturation )
 		{
-			$manager = new Ad_facturationManager($this->database)
+			$manager = new Ad_facturationManager($this->database);
 			$this->ad_facturation = $manager->findById($this->id_ad_facturation);
 		}
 		return $this->ad_facturation;

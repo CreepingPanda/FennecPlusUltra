@@ -224,7 +224,7 @@ class Item
             $stock = intval($stock);
             if($stock >= 0 && $stock <= 9999)
             {
-                $this->stock;
+                $this->stock = $stock;
             }
             else
             {
