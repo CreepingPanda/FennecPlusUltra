@@ -10,7 +10,7 @@
                     <div class="small-12 columns">
                         <label>Name*
                             <input name="name" type="text" placeholder="3 à 255 caractères"
-                                   value="<?= (isset($name)) ? htmlentities($name) : ""; ?>" required>
+                                   value="<?= (isset($name_item)) ? htmlentities($name_item) : ""; ?>" required>
                         </label>
                     </div>
                     <div class="small-12 columns">
@@ -45,7 +45,7 @@
     </div>
     <div class="medium-6 columns">
         <div class="input-group">
-            <input class="input-group-field" name="price" type="number" placeholder="Prix" required>
+            <input class="input-group-field" name="price" type="text" placeholder="Prix" required>
             <span class="input-group-label">€</span>
         </div>
     </div>

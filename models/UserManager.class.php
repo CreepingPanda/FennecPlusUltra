@@ -209,83 +209,46 @@ class UserManager {
 
     /**
      * @param User $user
-     * @param $lastName
-     * @param $firstName
-     * @param $password
-     * @param $passwordRepeat
-     * @param $email
-     * @param $emailRepeat
      * @return array
      * @throws Exception
      */
-    public function update(User $user, $lastName, $firstName, $password, $passwordRepeat, $email, $emailRepeat)
+    public function update(User $user)
     {
         $id     = $user->getId();
-        $newUser   = new User;
-        try
-        {
-            $newUser->setLastName($lastName);
-            $newUser->setFirstName($firstName);
-            $newUser->setPassword($password, $passwordRepeat);
-            $newUser->setEmail($email, $emailRepeat);
+        $lastName   = $this->db->quote($user->getLastName());
+        $firstName  = $this->db->quote($user->getFirstName());
+        $password   = $this->db->quote($user->getHash());
+        $email      = $this->db->quote($user->getEmail());
 
-        }
-        catch(Exception $e)
+        $query      = "   UPDATE user
+                      SET l_name = ".$lastName.", f_name = ".$firstName.", password = ".$password.", email = ".$email."
+                      WHERE id = ".$id;
+        $data       = $this->db->exec($query);
+        if($data)
         {
-            $errors[] = $e->getMessage();
-        }
+            $id     = $this->db->lastInsert();
 
-        if(count($errors) == 0)
-        {
-            if($this->checkIfEmailExist($email) == 0)
+            if($id)
             {
-                $lastName   = $this->db->quote($newUser->getLastName());
-                $firstName  = $this->db->quote($newUser->getFirstName());
-                $password   = $this->db->quote($newUser->getHash());
-                $email      = $this->db->quote($newUser->getEmail());
-
-                $query      = "   UPDATE user
-                              SET l_name = ".$lastName.", f_name = ".$firstName.", password = ".$password.", email = ".$email."
-                              WHERE id = ".$id;
-                $data       = $this->db->exec($query);
-                if($data)
+                try
                 {
-                    $id     = $this->db->lastInsert();
-
-                    if($id)
-                    {
-                        try
-                        {
-                            return $this->findById($id);
-                        }
-                        catch(Exception $e)
-                        {
-                            $errors[] = $e->getMessage();
-                            return $errors;
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Last id error");
-                    }
+                    return $this->findById($id);
                 }
-                else
+                catch(Exception $e)
                 {
-                    throw new Exception("Db error");
+                    $errors[] = $e->getMessage();
+                    return $errors;
                 }
             }
             else
             {
-                throw new Exception('Email allready exist');
+                throw new Exception("Last id error");
             }
         }
         else
         {
-            return $errors;
+            throw new Exception("Db error");
         }
-
-
-
     }
 
 
