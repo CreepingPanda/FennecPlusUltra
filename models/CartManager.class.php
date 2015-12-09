@@ -91,68 +91,103 @@ class CartManager
 			$_SESSION['cartStatus'] = 1;
 		}
 	}
-	public function logCart(User $user)
+	public function addToCart(Item $item, $quantity)
 	{
-		if ( isset($_SESSION['cartStatus']) && $_SESSION['cartStatus'] == 1 )
-		{
-			$cart = $user->getCart();
-			if ( $cart && isset($_SESSION['item']) )
-			{
-				$idUser = intval($user->getId());
-				$outItemList = $_SESSION['item'];
-				$idItem = '';
-				
-				$query = "INSERT INTO order (id_user, id_item) VALUES (".$idUser.", ".$idItem.")";
-				$prepared = $this->database->prepare($query);
-
-				for ( $i=0; $i<count($outItemList); $i++ )
-				{
-					$idItem = intval($outItemList[$i]);
-					$prepared->execute();
-				}
-				$prepared->closeCursor();
-			}
-		}
-	}
-	public function addToCart(Item $item, User $user, $quantity)
-	{
-		if ( $item )
+		if ( is_object($item) )
 		{
 			$idItem = intval($item->getId());
 
-			if ( isset($_SESSION['id']) )
+			if ( is_int($quantity) )
 			{
-				$idCart = intval($user->getCart()->getId());
-				$quantity = intval($quantity);
-
-				$query = "INSERT INTO order (id_cart, id_item, quantity) VALUES (".$idCart.", ".$idItem.", ".$quantity.")";
-
-				$result = $this->database->exec($query);
-				if ( $result )
+				if ( $quantity <= $item->getStock() )
 				{
-					$id = $this->database->lastInsertId();
-					if ( $id )
+					$quantity = intval($quantity);
+				}
+				else
+				{
+					throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
+					$quantity = intval($item->getStock());
+				}
+
+				if ( $quantity )
+				{
+					if ( isset($_SESSION['id']) )
 					{
-						return $this->findById($id);
+						$idCart = intval($user->getCart()->getId());
+
+						$query = "INSERT INTO order (id_cart, id_item, quantity) VALUES (".$idCart.", ".$idItem.", ".$quantity.")";
+
+						$result = $this->database->exec($query);
+						if ( $result )
+						{
+							$id = $this->database->lastInsertId();
+							if ( $id )
+							{
+								return $this->findById($id);
+							}
+							else
+							{
+								throw new Exception("Catastrophe serveur.");
+							}
+						}
+						else
+						{
+							throw new Exception("Catastrophe base de données.");
+						}
 					}
 					else
 					{
-						throw new Exception("Catastrophe serveur.");
+						$_SESSION['cart_status'] = 1;
+						$_SESSION['order'] = array();
+						$_SESSION['order'][] = $idItem.', '.$quantity;
 					}
 				}
 				else
 				{
-					throw new Exception("Catastrophe base de données.");
+					throw new Exception("Pas de quantité, sérieusement ? ON ENVOIE AU HASARD ?");
 				}
 			}
 			else
 			{
-				$_SESSION['item'] = $idItem;
+				throw new Exception("La quantité doit être un nombre, vilain lutin violeur de lapins.");
 			}
 		}
 		else
 		{
 			throw new Exception("Oh mon dieu, article introuvable !");
+		}
+	}
+	public function logCart(User $user)
+	{
+		if ( $user )
+		{
+			if ( isset($_SESSION['cart_status']) && $_SESSION['cart_status'] == 1 )
+			{
+				if ( isset($_SESSION['order']) )
+				{
+					$manager = new ItemManager($this->database);
+
+					for ( $i=0; $i<count($_SESSION['order']); $i++ )
+					{
+						$itemArray = explode(', ', $_SESSION['order'][$i]);
+
+						$item = $manager->findById($itemArray[0]);
+						if ( $item )
+						{
+							$quantity = $itemArray[1];
+							$add = $hatis->addToCart($item, $quantity);
+						}
+						else
+						{
+							throw new Exception("Article ".$i." introuvable.");
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			throw new Exception("Erreur connexion utilisateur.");
 		}
 	}
 // ________________

@@ -1,3 +1,28 @@
-<?php
-require('apps/content/items.php');
-?>
+<!-- <div>
+	<h3><?php echo ($subCategory->getName()); ?></h3>
+
+
+</div> -->
+
+<form action="post" action="index.php?=subcategory&action=create&id=<?= $_GET['id']?>">
+	<fieldset> 
+			<legend>creation sous category<legend>
+	<label>nom :
+		<input type="text" id="name" name="name" value=" <?=(isset($subcategory)) ? htmlentities($name_subcategory) : ""?>" /></label>
+		<br>
+	<label>description :
+		<input type="text" id="description" name="description" value="<?= (isset($subcategory)) ? htmlentities($subcategory) : "" ?>" /></label>
+		<br>
+	<label>image:
+		<input type="text" id="image" name="image" value="<?=(isset($subcategory)) ? htmlentities($image) : ""?>" /></label>
+		<br>
+
+		<button type="submit">Valider</button>
+	</fieldset>
+</form>
+
+
+
+
+
+<a href="">editer<?php require('apps/content/edit_subcategory.php'); ?></a>
