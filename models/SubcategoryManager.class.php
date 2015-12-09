@@ -32,7 +32,7 @@ class SubCategoryManager
 							$res = $this->db->query ($query);
 							if ($res)
 							{
-								$id = $this->db());
+								$id = $this->db();
 								if ($id) 
 								{
 									return $this -> findById($id); 	
