@@ -125,7 +125,7 @@ class SubCategoryManager
 		if ($rep) 
 		{	
 			$list = array();
-			while ( $renvoi= $res->fetchObject("SubCategory", array($this->db))) 
+			while ( $renvoi= $rep->fetchObject("SubCategory", array($this->db)))
 			{
 				$list[] = $renvoi;
 			}
