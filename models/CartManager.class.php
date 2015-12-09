@@ -96,7 +96,7 @@ class CartManager
 		if ( isset($_SESSION['cartStatus']) && $_SESSION['cartStatus'] == 1 )
 		{
 			$cart = $user->getCart();
-			if ( $cart && isset($_SESSION['item'])
+			if ( $cart && isset($_SESSION['item']) )
 			{
 				$idUser = intval($user->getId());
 				$outItemList = $_SESSION['item'];
