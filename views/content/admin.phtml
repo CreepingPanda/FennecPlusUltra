@@ -1,66 +1,65 @@
 <div class="row">
-    <div class="small-12">
+    <div class="small-12 columns">
         <h2>Ajout d'un article</h2>
-
         <form action="?page=item" method="POST">
             <input type="hidden" name="action" value="add">
-
             <div class="row">
                 <div class="medium-6 columns">
-                    <div class="small-12 columns">
-                        <label>Name*
-                            <input name="name" type="text" placeholder="3 à 255 caractères"
-                                   value="<?= (isset($name_item)) ? htmlentities($name_item) : ""; ?>" required>
-                        </label>
-                    </div>
-                    <div class="small-12 columns">
-                        <label>Category*
-                            <select name="category" id="category">
-                                <option value="1">Category 1</option>
-                            </select>
-                        </label>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <label>Name*
+                                <input name="name" type="text" placeholder="3 à 255 caractères"
+                                       value="<?= (isset($name_item)) ? htmlentities($name_item) : ""; ?>" required>
+                            </label>
+                        </div>
+                        <div class="small-12 columns">
+                            <label>Category*
+                                <select name="category" id="category">
+                                    <option value="1">Category 1</option>
+                                </select>
+                            </label>
+                        </div>
                     </div>
                 </div>
-
                 <div class="medium-6 columns">
-                    <div class="small-12 columns">
-                        <label>Description courte*
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <label>Description courte*
                         <textarea name="short_descr" type="text" placeholder="3 à 255 caractères" rows="3"
                                   required><?= (isset($short_descr)) ? htmlentities($short_descr) : ""; ?></textarea>
-                        </label>
+                            </label>
 
+                        </div>
                     </div>
                 </div>
-    </div>
-    <div class="row">
-        <div class="medium-6 columns">
-
-        </div>
-    </div>
-    <div class="medium-12 columns">
-        <label>Description longue*
+                <div class="small-12 columns">
+                    <label for="image">
+                        Image
+                        <input type="url" name="image" placeholder="Url vers l'image">
+                    </label>
+                </div>
+                <div class="medium-12 columns">
+                    <label>Description longue*
                     <textarea name="description" type="text" placeholder="5 à 2047 caractères" required
                               rows="5"><?= (isset($description)) ? htmlentities($description) : ""; ?></textarea
-        </label>
+                    </label>
+                </div>
+                <div class="medium-6 columns">
+                    <div class="input-group">
+                        <input class="input-group-field" name="price" type="text" placeholder="Prix" required>
+                        <span class="input-group-label">€</span>
+                    </div>
+                </div>
+                <div class="medium-6 columns">
+                    <div class="input-group">
+                        <input class="input-group-field" name="stock" type="number" placeholder="Quantité" required>
+                        <span class="input-group-label">Unité(s)</span>
+                    </div>
+                </div>
+                <div class="small-12 columns">
+                    <button class="success button" type="submit">Envoyer</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="medium-6 columns">
-        <div class="input-group">
-            <input class="input-group-field" name="price" type="text" placeholder="Prix" required>
-            <span class="input-group-label">€</span>
-        </div>
-    </div>
-    <div class="medium-6 columns">
-        <div class="input-group">
-            <input class="input-group-field" name="stock" type="number" placeholder="Quantité" required>
-            <span class="input-group-label">Unité(s)</span>
-        </div>
-    </div>
-</div>
-
-<div class="small-12 columns">
-    <button class="success button" type="submit">Envoyer</button>
-</div>
-</div>
-</form>
-</div>
 </div>
