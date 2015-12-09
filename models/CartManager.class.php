@@ -97,54 +97,84 @@ class CartManager
 		{
 			$idItem = intval($item->getId());
 
-			if ( is_int($quantity) )
+			if ( !is_nan($quantity) )
 			{
-				if ( $quantity <= $item->getStock() )
+				if ( $quantity > 0 )
 				{
-					$quantity = intval($quantity);
-				}
-				else
-				{
-					throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
-					$quantity = intval($item->getStock());
-				}
-
-				if ( $quantity )
-				{
-					if ( isset($_SESSION['id']) )
+					if ( $quantity <= $item->getStock() )
 					{
-						$idCart = intval($user->getCart()->getId());
+						$quantity = intval($quantity);
+					}
+					else
+					{
+						throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
+						$quantity = intval($item->getStock());
+					}
 
-						$query = "INSERT INTO order (id_cart, id_item, quantity) VALUES (".$idCart.", ".$idItem.", ".$quantity.")";
-
-						$result = $this->database->exec($query);
-						if ( $result )
+					if ( $quantity )
+					{
+						if ( isset($_SESSION['id']) )
 						{
-							$id = $this->database->lastInsertId();
-							if ( $id )
+							$idCart = intval($user->getCart()->getId());
+
+							$query = "INSERT INTO order (id_cart, id_item, quantity) VALUES (".$idCart.", ".$idItem.", ".$quantity.")";
+
+							$result = $this->database->exec($query);
+							if ( $result )
 							{
-								return $this->findById($id);
+								$id = $this->database->lastInsertId();
+								if ( $id )
+								{
+									return $this->findById($id);
+								}
+								else
+								{
+									throw new Exception("Catastrophe serveur.");
+								}
 							}
 							else
 							{
-								throw new Exception("Catastrophe serveur.");
+								throw new Exception("Catastrophe base de données.");
 							}
 						}
 						else
 						{
-							throw new Exception("Catastrophe base de données.");
+							$_SESSION['cart_status'] = 1;
+							if ( !isset($_SESSION['order']) )
+							{
+								$_SESSION['order'] = array();
+								$_SESSION['order'][] = $idItem.', '.$quantity;
+							}
+							else
+							{
+								for ( $i=0; $i<count($_SESSION['order']); $i++ )
+								{
+									$itemArray = explode(', ', $_SESSION['order'][$i]);
+									if ( $itemArray[0] = $item->getId() )
+									{
+										if ( $itemArray[1]+$quantity <= $item->getStock() )
+										{
+											$quantity = $itemArray[1]+$quantity;
+										}
+										else
+										{
+											throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
+											$quantity = $item->getStock();
+										}
+										$_SESSION['order'][$i] = $idItem.', '.$quantity;
+									}
+								}
+							}
 						}
 					}
 					else
 					{
-						$_SESSION['cart_status'] = 1;
-						$_SESSION['order'] = array();
-						$_SESSION['order'][] = $idItem.', '.$quantity;
+						throw new Exception("Pas de quantité, sérieusement ? ON ENVOIE AU HASARD ?");
 					}
 				}
 				else
 				{
-					throw new Exception("Pas de quantité, sérieusement ? ON ENVOIE AU HASARD ?");
+					throw new Exception("La quantité doit être supérieure à 0, vilain violeur de poules.");
 				}
 			}
 			else
