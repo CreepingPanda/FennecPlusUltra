@@ -37,7 +37,8 @@ if(isset($_POST['action']))
                 if(!isset($_SESSION['errors']) || $_SESSION['errors'] == "")
                 {
                     $_SESSION['success']    = "Produit a bien  été :)";
-                    header('Location: ?page=item&id='.$item->getId().'');
+                    header('Location: ?page=item&id='.$item->getId());
+                    exit;
                 }
             }
         }
