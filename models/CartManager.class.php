@@ -42,6 +42,11 @@ class CartManager
 			throw new Exception("Erreur - Base de données.");
 		}
 	}
+	/**
+	 * [create description]
+	 * @param  User   $user [description]
+	 * @return [type]       [description]
+	 */
 	public function create(User $user)
 	{
 		$cart = new Cart();
@@ -107,7 +112,7 @@ class CartManager
 					}
 					else
 					{
-						throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
+						// throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
 						$quantity = intval($item->getStock());
 					}
 
@@ -160,7 +165,7 @@ class CartManager
 										}
 										else
 										{
-											throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
+											// throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
 											$quantity = $item->getStock();
 										}
 										$_SESSION['order'][$i] = $idItem.', '.$quantity;
