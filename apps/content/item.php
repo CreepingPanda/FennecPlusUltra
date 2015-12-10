@@ -14,6 +14,7 @@
 		if ( $item )
 		{
 			require('views/content/item.phtml');
+			var_dump($_SESSION);
 		}
 		else
 		{
