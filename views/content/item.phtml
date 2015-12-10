@@ -3,10 +3,11 @@
 
 	<form method="post" action="index.php?page=cart&id=<?=$item->getId()?>&action=add_item">
 		<fieldset>
-			<legend>La main au panier</legend>
-			<input type="number" max="999" name="quantity" id="quantity" value="1" />
-		<!-- ____ Attention vomi ____ -->
+			<legend><strong><?=$item->getStock()?></strong> en stock, <strong><?=$quantity?></strong> dans le panier</legend>
+			<input type="number" max="<?=$item->getStock() - $quantity?>" min="-<?=$quantity?>" name="quantity" id="quantity" value="0" />
+		<!-- ____ Attention scandale ____ -->
 			<style>input[type="number"]{width:70px;}</style>
+		<!-- ________________ -->
 			<button type="submit">Ajouter</button>
 		</fieldset>
 	</form>

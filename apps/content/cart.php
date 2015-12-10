@@ -1,3 +1,3 @@
 <?php
-require('views/content/cart.phtml');
+	require('views/content/cart.phtml');
 ?>

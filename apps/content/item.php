@@ -13,8 +13,26 @@
 
 		if ( $item )
 		{
+			if ( isset($_SESSION['order']) )
+			{
+				for ($i=0; $i<count($_SESSION['order'][$i]['item']); $i++ )
+				{
+					if ( $item->getId() == $_SESSION['order'][$i]['item'] )
+					{
+						$quantity = $_SESSION['order'][$i]['quantity'];
+						break;
+					}
+					else
+					{
+						$quantity = 0;
+					}
+				}
+			}
+			else
+			{
+				$quantity = 0;
+			}
 			require('views/content/item.phtml');
-			var_dump($_SESSION);
 		}
 		else
 		{
