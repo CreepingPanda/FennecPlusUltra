@@ -7,8 +7,10 @@ class SubCategoryManager
 	{
 		$this->db = $db;
 	}
-		public function create($name, $description, $image, Category $category){
 
+	public function create($name, $description, $image, Category $category)
+	{
+	$errors = array();
 	$subCategory = new SubCategory($this->db);
 
 	 	 $valide = $subCategory->setDescription($description);
@@ -23,24 +25,31 @@ class SubCategoryManager
 					$valide = $subCategory->setCategory($category);
 					if ($valide === true){
 
-							$description = $this->db>quote($subCategory->getDescription());
-							$name = $this->db>quote($subCategory->getName());
-							$image = $this->db>quote($subCategory->getImage());
-							$id_category = $subCategory->getCategory()->getId();
-							$query = "INSERT INTO subcategory (description, name, image, id_category) VALUES ('".$description."', '".$name."', '".$image."', '".$id_category."')";
-							$res = $this->db->query($query);
-							if ($res)
+						$description = $this->db->quote($subCategory->getDescription());
+						$name = $this->db->quote($subCategory->getName());
+						$image = $this->db->quote($subCategory->getImage());
+						$id_category = $subCategory->getCategory()->getId();
+						$query = "INSERT INTO subcategory (description, name, image, id_category) VALUES (".$description.", ".$name.", ".$image.", ".$id_category.")";
+						$res = $this->db->query($query);
+						if ($res)
+						{
+							$id = $this->db->lastInsertId();
+							if ($id)
 							{
-								$id = $this->db();
-								if ($id) 
+								try
 								{
-									return $this -> findById($id); 	
-								} 
-								else
-								{	
-									throw new Exception("internal server error");
+									return $this -> findById($id);
+								}
+								catch(Exception $e)
+								{
+									$errors[] = $e->getMessage();
 								}
 							}
+							else
+							{
+								throw new Exception("internal server error");
+							}
+						}
 					}
 					else
 					{
@@ -67,7 +76,7 @@ class SubCategoryManager
 	public function delete(SubCategory $subCategory)
 	{
 	 	$id = $subCategory->getId();
-	 	$query = "DELETE FROM subcategory WHERE id='".$id."'";
+	 	$query = "DELETE FROM subcategory WHERE id=".$id;
 	 	$res = $this->db->query($query);
 	 	if($res)
 	 	{
@@ -89,7 +98,7 @@ class SubCategoryManager
 		$name = $this->db>quote($$subCategory->getName());
 		$image =$this->db>quote($subCategory->getImage());
 
-		$query ="UPDATE subcategory SET name='".$name."' description='".$description."' image='".$image."' WHERE id='".$id."'";
+		$query ="UPDATE subcategory SET name=".$name." description=".$description." image=".$image." WHERE id=".$id;
 		$res = $this->db->query($query);
 		if ($res)
 		{

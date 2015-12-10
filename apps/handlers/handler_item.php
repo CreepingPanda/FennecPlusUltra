@@ -24,7 +24,6 @@ if(isset($_POST['action']))
 
             if(!isset($_SESSION['errors']) || $_SESSION['errors'] == "" )
             {
-
                 try
                 {
                     $photo = $photo_itemManager->add($item, $currentUser, $_POST['image']);

@@ -13,9 +13,9 @@
                             </label>
                         </div>
                         <div class="small-12 columns">
-                            <label>Category*
+                            <label>SubCategory*
                                 <select name="category" id="category">
-                                    <option value="1">Category 1</option>-
+                                    <option value="1">SubCategory 1</option>-
                                 </select>
                             </label>
                         </div>
@@ -28,7 +28,6 @@
                         <textarea name="short_descr" type="text" placeholder="3 à 255 caractères" rows="3"
                                   required><?= (isset($short_descr)) ? htmlentities($short_descr) : ""; ?></textarea>
                             </label>
-
                         </div>
                     </div>
                 </div>
@@ -55,6 +54,73 @@
                         <input class="input-group-field" name="stock" type="number" placeholder="Quantité" required>
                         <span class="input-group-label">Unité(s)</span>
                     </div>
+                </div>
+                <div class="small-12 columns">
+                    <button class="success button" type="submit">Envoyer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="small-12 columns">
+        <h2>Ajout d'une sous-catégorie</h2>
+        <form action="?page=subcategory" method="POST">
+            <input type="hidden" name="action" value="add">
+            <div class="row">
+                <div class="medium-6 columns">
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <label>Name*
+                                <input name="name" type="text" placeholder="3 à 255 caractères"
+                                       value="<?= (isset($name_item)) ? htmlentities($name_item) : ""; ?>" required>
+                            </label>
+                        </div>
+                        <div class="small-12 columns">
+                            <label>Category*
+                                <select name="category" id="category">
+                                    <option value="1">Category 1</option>-
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="medium-6 columns">
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <label>Description
+                                <textarea name="description" type="text" placeholder="3 à 511 caractères" rows="4"
+                                  required><?= (isset($description)) ? htmlentities($description) : ""; ?></textarea>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-12 columns">
+                    <label for="image">
+                        Image
+                        <input type="url" name="image" placeholder="Url vers l'image">
+                    </label>
+                </div>
+                <div class="small-12 columns">
+                    <button class="success button" type="submit">Envoyer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="small-12 columns">
+        <h2>Ajout d'une catégorie</h2>
+        <form action="?page=category" method="POST">
+            <input type="hidden" name="action" value="add">
+            <div class="row">
+                <div class="medium-12 columns">
+                    <label>Name*
+                        <input name="name" type="text" placeholder="3 à 255 caractères"
+                               value="<?= (isset($category_name)) ? htmlentities($category_name) : ""; ?>" required>
+                    </label>
+                </div>
+                <div class="medium-12 columns">
+                    <label>Description
+                        <textarea name="description" type="text" placeholder="3 à 511 caractères" rows="4"
+                                  required><?= (isset($category_description)) ? htmlentities($category_description) : ""; ?></textarea>
+                    </label>
                 </div>
                 <div class="small-12 columns">
                     <button class="success button" type="submit">Envoyer</button>

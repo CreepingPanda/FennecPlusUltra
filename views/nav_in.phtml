@@ -4,7 +4,7 @@
 			<li>
 				<a href="?page=<?=$url?>"><?=$name?></a>
 				<a href="?page=category">Catègories</a>
-				<a href="?page=profile">Votre profil</a>
+				<a href="?page=profile&id=<?= $currentUser->getId();?>">Votre profil</a>
 				<a href="?page=logout&action=logout">Deconexion</a>			
 			</li>
 		</ul>
