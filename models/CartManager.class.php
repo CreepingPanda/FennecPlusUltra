@@ -42,11 +42,6 @@ class CartManager
 			throw new Exception("Erreur - Base de données.");
 		}
 	}
-	/**
-	 * [create description]
-	 * @param  User   $user [description]
-	 * @return [type]       [description]
-	 */
 	public function create(User $user)
 	{
 		$cart = new Cart();
@@ -96,106 +91,67 @@ class CartManager
 			$_SESSION['cartStatus'] = 1;
 		}
 	}
-	public function addToCart(Item $item, $quantity)
+	public function addToCart(User $user, Item $item, $quantity)
 	{
-		if ( is_object($item) )
+		$idItem = intval($item->getId());
+
+		if ( ctype_digit($quantity) )
 		{
-			$idItem = intval($item->getId());
-
-			if ( !is_nan($quantity) )
+			if ( $quantity > 0 )
 			{
-				if ( $quantity > 0 )
+				if ( $quantity <= $item->getStock() )
 				{
-					if ( $quantity <= $item->getStock() )
-					{
-						$quantity = intval($quantity);
-					}
-					else
-					{
-						// throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
-						$quantity = intval($item->getStock());
-					}
+					$quantity = intval($quantity);
+				}
+				else
+				{
+					$quantity = intval($item->getStock());
+				}
 
-					if ( $quantity )
+				if ( $quantity )
+				{
+					if ( isset($_SESSION['id']) )
 					{
-						if ( isset($_SESSION['id']) )
+						$idCart = intval($user->getCart()->getId());
+
+						$query = "INSERT INTO order (id_cart, id_item, quantity) VALUES (".$idCart.", ".$idItem.", ".$quantity.")";
+
+						$result = $this->database->exec($query);
+						if ( $result )
 						{
-							$idCart = intval($user->getCart()->getId());
-
-							$query = "INSERT INTO order (id_cart, id_item, quantity) VALUES (".$idCart.", ".$idItem.", ".$quantity.")";
-
-							$result = $this->database->exec($query);
-							if ( $result )
+							$id = $this->database->lastInsertId();
+							if ( $id )
 							{
-								$id = $this->database->lastInsertId();
-								if ( $id )
-								{
-									return $this->findById($id);
-								}
-								else
-								{
-									throw new Exception("Catastrophe serveur.");
-								}
+								return $user->getCart();
 							}
 							else
 							{
-								throw new Exception("Catastrophe base de données.");
+								throw new Exception("Catastrophe serveur.");
 							}
 						}
 						else
 						{
-							$_SESSION['cart_status'] = 1;
-							if ( !isset($_SESSION['order']) )
-							{
-								$_SESSION['order'] = array();
-								$_SESSION['order'][] = $idItem.', '.$quantity;
-							}
-							else
-							{
-								for ( $i=0; $i<count($_SESSION['order']); $i++ )
-								{
-									$itemArray = explode(', ', $_SESSION['order'][$i]);
-									// ____ 0 : $idItem \ 1 : $quantity ____
-
-									if ( $itemArray[0] == $item->getId() )
-									{
-										if ( $itemArray[1]+$quantity <= $item->getStock() )
-										{
-											$quantity = $itemArray[1]+$quantity;
-										}
-										else
-										{
-											// throw new Exception("Stocks insuffisants. Nous ajustons votre quantité.");
-											$quantity = $item->getStock();
-										}
-										$_SESSION['order'][$i] = $idItem.', '.$quantity;
-									}
-									else
-									{
-										$_SESSION['order'][] = $idItem.', '.$quantity;
-									}
-								}
-							}
+							throw new Exception("Catastrophe base de données.");
 						}
 					}
 					else
 					{
-						throw new Exception("Pas de quantité, sérieusement ? ON ENVOIE AU HASARD ?");
+						throw new Exception("Erreur vraiment bizarre, là, je peux pas aider.");
 					}
 				}
 				else
 				{
-					throw new Exception("La quantité doit être supérieure à 0, vilain violeur de poules.");
+					throw new Exception("Pas de quantité, sérieusement ? ON ENVOIE AU HASARD ?");
 				}
 			}
 			else
 			{
-				throw new Exception("La quantité doit être un nombre, vilain lutin violeur de lapins.");
+				throw new Exception("La quantité doit être supérieure à 0, vilain violeur de poules.");
 			}
 		}
 		else
 		{
-			throw new Exception("Oh mon dieu, article introuvable !");
+			throw new Exception("La quantité doit être un nombre, vilain lutin violeur de lapins.");
 		}
 	}
 	public function logCart(User $user)

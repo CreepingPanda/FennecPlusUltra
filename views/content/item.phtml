@@ -1,7 +1,7 @@
 	<h1><?=$item->getName()?></h1>
 	<p><?=$item->getDescription()?></p>
 
-	<form method="post" action="index.php?page=item&id=<?=$item->getId()?>&action=add_item">
+	<form method="post" action="index.php?page=cart&id=<?=$item->getId()?>&action=add_item">
 		<fieldset>
 			<legend>La main au panier</legend>
 			<input type="number" max="999" name="quantity" id="quantity" value="1" />
