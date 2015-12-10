@@ -21,7 +21,6 @@ class CategoryManager
 	public function findById($id)
 	{
 		$id = intval($id);
-
 		$query = "SELECT * FROM category WHERE id = ".$id;
 
 		$result = $this->database->query($query);
@@ -44,7 +43,7 @@ class CategoryManager
 	}
 	public function create(User $currentUser, $name, $description)
 	{
-		$category = new Category();
+		$category = new Category($this->database);
 
 		if ( $currentUser )
 		{
@@ -59,7 +58,7 @@ class CategoryManager
 						$name = $this->database->quote($category->getName());
 						$description = $this->database->quote($category->getDescription());
 						$query = "INSERT INTO category (name, description)
-							VALUES ('".$name."', '".$description."')";
+							VALUES (".$name.", ".$description.")";
 
 						$result = $this->database->exec($query);
 						if ( $result )
@@ -67,7 +66,14 @@ class CategoryManager
 							$id = $this->database->lastInsertId();
 							if ( $id )
 							{
-								return $this->findById($id);
+								try
+								{
+									return $this->findById($id);
+								}
+								catch(Exception $e)
+								{
+									$errors[] = $e->getMessage();
+								}
 							}
 							else
 							{
