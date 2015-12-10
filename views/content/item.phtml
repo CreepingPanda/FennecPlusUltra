@@ -1,10 +1,11 @@
 	<h1><?=$item->getName()?></h1>
 	<p><?=$item->getDescription()?></p>
+	<p><?=$item->getPrice()?></p>
 
 	<form method="post" action="index.php?page=cart&id=<?=$item->getId()?>&action=add_item">
 		<fieldset>
 			<legend><strong><?=$item->getStock()?></strong> en stock, <strong><?=$quantity?></strong> dans le panier</legend>
-			<input type="number" max="<?=$item->getStock() - $quantity?>" min="-<?=$quantity?>" name="quantity" id="quantity" value="0" />
+			<input type="number" min="-<?=$minValue?>" max="<?=$maxValue?>" name="quantity" id="quantity" value="<?=$defaultValue?>" />
 		<!-- ____ Attention scandale ____ -->
 			<style>input[type="number"]{width:70px;}</style>
 		<!-- ________________ -->

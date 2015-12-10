@@ -42,7 +42,6 @@ if ( isset($_GET['action']) )
 
 				for ( $i=0; $i<count($_SESSION['order']); $i++ )
 				{
-					var_dump($_SESSION);
 					$localItem = $_SESSION['order'][$i]['item'];
 					$localQuantity = $_SESSION['order'][$i]['quantity'];
 					if ( $localItem == $item->getId() )

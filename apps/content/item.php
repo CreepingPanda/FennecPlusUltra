@@ -15,7 +15,7 @@
 		{
 			if ( isset($_SESSION['order']) )
 			{
-				for ($i=0; $i<count($_SESSION['order'][$i]['item']); $i++ )
+				for ($i=0; $i<count($_SESSION['order']); $i++ )
 				{
 					if ( $item->getId() == $_SESSION['order'][$i]['item'] )
 					{
@@ -30,8 +30,21 @@
 			}
 			else
 			{
-				$quantity = 0;
+				$quantity = $item->getQuantity();
 			}
+			
+			$minValue = $quantity;
+			$maxValue = $item->getStock() - $quantity;
+
+			if ( $maxValue > 0 )
+			{
+				$defaultValue = 1;
+			}
+			else
+			{
+				$defaultValue = 0;
+			}
+
 			require('views/content/item.phtml');
 		}
 		else

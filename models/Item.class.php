@@ -14,6 +14,7 @@ class Item
     private $price;
     private $stock;
     private $photos = array();
+    private $quantity;
 
 
     public function __construct($db)
@@ -62,6 +63,28 @@ class Item
     {
         return $this->photos;
     }
+    public function getQuantity()
+    {
+        $query = "SELECT quantity FROM order WHERE id_item = ".$this->getId();
+        $result = $this->database->query($query);
+        if ( $result )
+        {
+            $quantity = $result;
+            if ( ctype_digit($quantity) )
+            {
+                return $quantity;
+            }
+            else
+            {
+                $errors[] = "Erreur quantité.";
+            }
+        }
+        else
+        {
+            $errors[] = "Catastrophe base de données.";
+        }
+    }
+
 
 
     /**
