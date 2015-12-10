@@ -52,7 +52,8 @@ if(isset($_POST['action']))
             {
                 $errors[] = $e->getMessage();
             }
-            try {
+            try
+            {
                 $user->verifPassword($_POST['password']);
             }
             catch(Exception $e)
@@ -62,13 +63,14 @@ if(isset($_POST['action']))
             if(count($errors) == 0)
             {
                 $_SESSION['id'] = $user->getId();
-                $_SESSION['success'] = "Bienvenu ".htmlentities($user->getFirstName()).", :)";
+                $_SESSION['success'] = "Bienvenue ".htmlentities($user->getFirstName()).", :)";
                 header('Location: index.php');
                 exit;
             }
             else
             {
                 return $errors;
+                var_dump($errors);
             }
         }
     }
