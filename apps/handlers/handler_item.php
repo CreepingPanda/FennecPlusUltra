@@ -10,7 +10,8 @@ if(isset($_POST['action']))
             $itemManager        = new ItemManager($database);
             $subcategoryManager = new SubcategoryManager($database);
             $subcategory        = $subcategoryManager->findById($id_category);
-            $photo_iteamManager = new Photo_itemManager($database);
+            $photo_itemManager = new Photo_itemManager($database);
+
 
             try
             {
@@ -23,9 +24,10 @@ if(isset($_POST['action']))
 
             if(!isset($_SESSION['errors']) || $_SESSION['errors'] == "" )
             {
+
                 try
                 {
-                    $photo = $photo_iteamManager->add($item, $currentUser, $_POST['image']);
+                    $photo = $photo_itemManager->add($item, $currentUser, $_POST['image']);
                 }
                 catch(Exception $e)
                 {
@@ -35,6 +37,8 @@ if(isset($_POST['action']))
                 if(!isset($_SESSION['errors']) || $_SESSION['errors'] == "")
                 {
                     $_SESSION['success']    = "Produit a bien  été :)";
+                    header('Location: ?page=item&id='.$item->getId());
+                    exit;
                 }
             }
         }
