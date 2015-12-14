@@ -306,7 +306,7 @@ if ( isset($_GET['action']) )
 	 					$check = checkCreditCard($cardNumber, $cardName, $errorNumber, $errorText);
 	 					if ( $check == true )
 	 					{
-	 						$_SESSION['success'] = 'Bonne réponse, rends-nous riches !';
+	 						$_SESSION['success'] = 'Parfait, numéro de carte valide, maintenant rends-nous riches !';
 		 				}
 		 				else
 		 				{
