@@ -291,15 +291,14 @@ if ( isset($_GET['action']) )
 		}
 	// ________________
 	// ________ EXECUTION ________
-		 var_dump('Hello');
 		$errorNumber = '';
 		$errorText = '';
-		if ( isset($_GET['cardNumber']) )
+		if ( isset($_POST['cardNumber']) )
 		{
-			$_GET['cardNumber'] = $cardNumber;
-			if ( isset($_GET['cardName']) )
+			$cardNumber = $_POST['cardNumber'];
+			if ( isset($_POST['cardName']) )
 			{
-				$_GET['cardName'] = $cardName;
+				 $cardName = $_POST['cardName'];
 				if ( isset ($errorNumber) )
 				{
 					if ( isset($errorText) )
@@ -307,13 +306,11 @@ if ( isset($_GET['action']) )
 	 					$check = checkCreditCard($cardNumber, $cardName, $errorNumber, $errorText);
 	 					if ( $check == true )
 	 					{
-		 					header('Location: index.php?page=payment');
-		 					exit;
+	 						$_SESSION['success'] = 'Bonne réponse, rends-nous riches !';
 		 				}
 		 				else
 		 				{
-		 					header('Location: index.php?page=payment');
-		 					exit;
+		 					$errors[] = $errorText;
 		 				}
 	 				}
 	 			}
