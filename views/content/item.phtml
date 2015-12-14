@@ -1,6 +1,6 @@
 	<h1><?=$item->getName()?></h1>
 	<p><?=$item->getDescription()?></p>
-	<p><?=$item->getPrice()?></p>
+	<p>Seulement <?=$item->getPrice()?> € le specimen !</p>
 
 	<form method="post" action="index.php?page=cart&id=<?=$item->getId()?>&action=add_item">
 		<fieldset>
@@ -13,6 +13,4 @@
 		</fieldset>
 	</form>
 
-<?php
-	require('apps/content/comments.php');
-?>
+<?php require('apps/content/comments.php'); ?>

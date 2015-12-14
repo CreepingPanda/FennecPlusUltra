@@ -66,7 +66,7 @@ class Item
     public function getQuantity()
     {
         $query = "SELECT quantity FROM order WHERE id_item = ".$this->getId();
-        $result = $this->database->query($query);
+        $result = $this->db->query($query);
         if ( $result )
         {
             $quantity = $result;

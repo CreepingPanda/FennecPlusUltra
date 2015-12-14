@@ -33,6 +33,10 @@
 				$quantity = $item->getQuantity();
 			}
 			
+			if ( !isset($quantity) )
+			{
+				$quantity = 0;
+			}
 			$minValue = $quantity;
 			$maxValue = $item->getStock() - $quantity;
 

@@ -3,7 +3,7 @@
 	{
 		$cart = $currentUser->getCart()->getItemList();
 	}
-	else
+	else if ( isset($_SESSION['order']) )
 	{
 		$manager = new ItemManager($database);
 		for ( $i=0; $i<count($_SESSION['order']); $i++ )
