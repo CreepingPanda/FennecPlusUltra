@@ -1,3 +1,3 @@
 <?php
-require('views/content/payment.phtml');
+	require('views/content/payment.phtml');
 ?>
